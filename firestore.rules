@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {  
+  	
+    /* Sign-up rules */
+    match /users/{username} {
+      allow read: if true;
+      allow create: if !userExists(username);
+      allow update, delete: if belongsTo(resource.data.id);
+    }
+
+    /* Rules for Public Data */
+    match /spots/{spot} {
+      allow read: if true;
+      allow write: if true; // TODO: change to only if changing user is admin
+    }
+    
+    match /spotRequests/{request} {
+      allow read: if true; // TODO: change to only if user is admin
+      allow update, delete: if true; // TODO: change to only if user is admin
+      allow create: if request.auth != null;
+    }
+
+    match /adminRequests/{request} {
+      allow read, write: if true; // TODO: change to only if user is admin
+    }
+    
+    /* FUNCTIONS */
+    function userExists(username) {
+      return exists(/databases/$(database)/documents/users/$(username));
+    }
+    
+    function belongsTo(userId) {
+        return request.auth.uid == userId
+    }
+  }
+}
