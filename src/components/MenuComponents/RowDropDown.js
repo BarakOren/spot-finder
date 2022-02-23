@@ -10,14 +10,14 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     border-bottom: solid 1px #d9d9d9;
-    transition: all .2s ease-in;
+    transition: visibility .3s, height .3s ease-in;
     overflow: hidden;
     visibility: hidden;
 
     &.shown{
         visibility: visible;
         height: 300px;
-        transition: height .2s ease-out;
+        transition: visibility .4s, height .4s ease-out;
         padding: 10px 0;
     }
 `

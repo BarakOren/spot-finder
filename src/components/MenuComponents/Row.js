@@ -77,11 +77,7 @@ const Row = ({id}) => {
             <RowContainer>
             <InsideRow onClick={() => setToggle(!toggle)}>
                 <SpotName >{data.name}</SpotName>
-                {toggle ? 
-                <i className="bi bi-caret-up-fill" onClick={() => setToggle(false)} style={{color: "#d9d9d9", cursor: "pointer"}}></i>
-                :
-                <i className="bi bi-caret-down-fill" onClick={() => setToggle(true)} style={{color: "#d9d9d9", cursor: "pointer"}}></i>
-                }
+                <i className="bi bi-caret-up-fill" onClick={() => setToggle(false)} style={{color: "#d9d9d9", cursor: "pointer", transform: toggle ? "rotate(0deg)" : "rotate(180deg)", transition: ".4s all"}}></i>
             </InsideRow>
             </RowContainer>
             <RowDropDown data={data} toggle={toggle} />
